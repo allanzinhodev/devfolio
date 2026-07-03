@@ -22,6 +22,12 @@ export function CursorCharacter() {
       mouse.current = { x: e.clientX, y: e.clientY };
     };
 
+    const handleTouch = (e) => {
+      if (e.touches.length > 0) {
+        mouse.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    };
+
     const update = (time) => {
       if (!containerRef.current) return;
 
@@ -99,10 +105,12 @@ export function CursorCharacter() {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouch);
     requestRef.current = requestAnimationFrame(update);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouch);
       cancelAnimationFrame(requestRef.current);
     };
   }, []);
@@ -110,7 +118,7 @@ export function CursorCharacter() {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
     >
       {/* 1. O Efeito de Luz focado no Personagem */}
       <div 
