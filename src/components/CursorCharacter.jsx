@@ -126,7 +126,7 @@ export function CursorCharacter() {
         style={{
           left: 'calc(var(--char-x, 50%) - 48px)',
           top: 'calc(var(--char-y, 50%) - 48px)',
-          backgroundImage: "url('/poring.png')",
+          backgroundImage: `url('${import.meta.env.BASE_URL}poring.png')`,
           backgroundSize: '400% 1200%',
           backgroundPosition: 'calc(var(--col, 0) * 33.3333%) calc(var(--row, 0) * 9.0909%)',
           imageRendering: 'pixelated'
