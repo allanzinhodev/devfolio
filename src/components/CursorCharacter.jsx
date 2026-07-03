@@ -110,7 +110,7 @@ export function CursorCharacter() {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block"
     >
       {/* 1. O Efeito de Luz focado no Personagem */}
       <div 
