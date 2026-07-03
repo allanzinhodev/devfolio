@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, a, button {
+    scroll-behavior: smooth;
+    cursor: url('/sword.png'), auto;
+  }
+  body {
+    @apply bg-black text-gray-200;
+  }
+}
+
+/* ponytail: utils para os hard-shadows retrô, evitando repetir código extenso no HTML */
+@layer utilities {
+  .pixel-border {
+    @apply border-2 border-neon;
+  }
+  .pixel-shadow {
+    box-shadow: 4px 4px 0px 0px #ff1493;
+  }
+  .pixel-shadow-hover:hover {
+    box-shadow: 2px 2px 0px 0px #ff1493;
+    transform: translate(2px, 2px);
+  }
+
+  /* Marquee animation for carousel */
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
