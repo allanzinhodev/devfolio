@@ -20,6 +20,7 @@ export function Footer({ t }) {
         >
           Discord
         </button>
+        <a href={`https://${t.contact.discordChannel}`} target="_blank" rel="noreferrer" className="hover:text-neon">Discord Channel</a>
       </div>
       <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Allan Rodrigues</p>
     </footer>

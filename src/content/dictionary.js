@@ -56,7 +56,8 @@ export const content = {
       linkedin: "linkedin.com/in/allanzinho",
       youtube: "youtube.com/@allanzinhodev",
       whatsapp: "wa.me/5579998745753",
-      discord: "allanrd94"
+      discord: "allanrd94",
+      discordChannel: "discord.gg/cmffrP82jx"
     }
   },
   en: {
@@ -115,7 +116,8 @@ export const content = {
       linkedin: "linkedin.com/in/allanzinho",
       youtube: "youtube.com/@allanzinhodev",
       whatsapp: "wa.me/5579998745753",
-      discord: "allanrd94"
+      discord: "allanrd94",
+      discordChannel: "discord.gg/cmffrP82jx"
     }
   }
 };
