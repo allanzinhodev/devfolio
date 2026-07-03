@@ -10,6 +10,7 @@ export function CursorCharacter() {
   
   const direction = useRef(2); // 0: Norte, 1: Leste, 2: Sul, 3: Oeste
   const isMoving = useRef(false);
+  const inputType = useRef('mouse');
   const frameTime = useRef(0);
   const currentFrame = useRef(0);
   const requestRef = useRef();
@@ -19,10 +20,12 @@ export function CursorCharacter() {
     lastTime.current = performance.now();
     
     const handleMouseMove = (e) => {
+      inputType.current = 'mouse';
       mouse.current = { x: e.clientX, y: e.clientY };
     };
 
     const handleTouch = (e) => {
+      inputType.current = 'touch';
       if (e.touches.length > 0) {
         mouse.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
       }
@@ -40,12 +43,14 @@ export function CursorCharacter() {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       let moving = false;
-      // Mantém os 150px de distância
-      if (distance > 150) {
+      const stopDistance = inputType.current === 'touch' ? 5 : 150;
+      
+      // Mantém a distância definida
+      if (distance > stopDistance) {
         moving = true;
         const angle = Math.atan2(dy, dx);
-        const targetX = mouse.current.x - Math.cos(angle) * 150;
-        const targetY = mouse.current.y - Math.sin(angle) * 150;
+        const targetX = mouse.current.x - Math.cos(angle) * stopDistance;
+        const targetY = mouse.current.y - Math.sin(angle) * stopDistance;
         
         const moveX = targetX - char.current.x;
         const moveY = targetY - char.current.y;
