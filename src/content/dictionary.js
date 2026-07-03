@@ -55,7 +55,8 @@ export const content = {
       github: "github.com/allanzinhodev",
       linkedin: "linkedin.com/in/allanzinho",
       youtube: "youtube.com/@allanzinhodev",
-      whatsapp: "wa.me/5579998745753"
+      whatsapp: "wa.me/5579998745753",
+      discord: "allanrd94"
     }
   },
   en: {
@@ -113,7 +114,8 @@ export const content = {
       github: "github.com/allanzinhodev",
       linkedin: "linkedin.com/in/allanzinho",
       youtube: "youtube.com/@allanzinhodev",
-      whatsapp: "wa.me/5579998745753"
+      whatsapp: "wa.me/5579998745753",
+      discord: "allanrd94"
     }
   }
 };

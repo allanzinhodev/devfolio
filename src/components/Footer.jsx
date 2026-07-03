@@ -11,6 +11,15 @@ export function Footer({ t }) {
         <a href={`https://${t.contact.github}`} target="_blank" rel="noreferrer" className="hover:text-neon">GitHub</a>
         <a href={`https://${t.contact.youtube}`} target="_blank" rel="noreferrer" className="hover:text-neon">YouTube</a>
         <a href={`https://${t.contact.whatsapp}`} target="_blank" rel="noreferrer" className="hover:text-neon">WhatsApp</a>
+        <button 
+          onClick={() => {
+            navigator.clipboard.writeText(t.contact.discord);
+            alert('Discord ID copiado: ' + t.contact.discord);
+          }} 
+          className="hover:text-neon transition-colors"
+        >
+          Discord
+        </button>
       </div>
       <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Allan Rodrigues</p>
     </footer>
