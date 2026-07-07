@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { content } from './content/dictionary';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -8,11 +8,20 @@ import { PixelGrid } from './components/PixelGrid';
 import { Footer } from './components/Footer';
 import { CursorCharacter } from './components/CursorCharacter';
 import { CareerTimeline } from './components/CareerTimeline';
+import { PokeAIPage } from './components/PokeAIPage';
+import { BacklandsPage } from './components/BacklandsPage';
 
 function App() {
   const [lang, setLang] = useState('pt');
   const [showTimeline, setShowTimeline] = useState(false);
+  const [activeProject, setActiveProject] = useState(null);
   const t = content[lang];
+
+  useEffect(() => {
+    const handler = (e) => setActiveProject(e.detail);
+    window.addEventListener('open-project', handler);
+    return () => window.removeEventListener('open-project', handler);
+  }, []);
 
   return (
     <div className="min-h-screen bg-black">
@@ -91,6 +100,13 @@ function App() {
 
         <Footer t={t} />
       </div>
+
+      {activeProject === 'pokeai' && (
+        <PokeAIPage onClose={() => setActiveProject(null)} />
+      )}
+      {activeProject === 'backlands' && (
+        <BacklandsPage onClose={() => setActiveProject(null)} />
+      )}
     </div>
   );
 }
