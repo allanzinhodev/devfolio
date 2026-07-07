@@ -45,6 +45,11 @@ function App() {
               <div key={idx} className="border-l-4 border-neon pl-4 py-1">
                 <h4 className="font-bold text-xl mb-2 font-press text-sm leading-6">{job.title}</h4>
                 <p className="text-gray-400 text-lg">{job.desc}</p>
+                {job.link && (
+                  <a href={job.link.url} target="_blank" rel="noopener noreferrer" className="text-neon hover:underline text-lg mt-2 inline-flex items-center gap-1">
+                    {job.link.label} ↗
+                  </a>
+                )}
               </div>
             ))}
           </div>
