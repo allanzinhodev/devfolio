@@ -18,7 +18,6 @@ const events = [
   { year: "2025", type: "Freelance", title: "MazeOT", description: "Reverse engineering for the creation of an Open Tibia automation bot." },
   { year: "2025", type: "Contract", title: "Causso IT Solutions — Drakmora", description: "Open Tibia server development using TFS/OTX. Stack: C++, Lua, MySQL, Pixel Art." },
   { year: "2026", type: "Freelance", title: "Divine Gaming", description: "Pixel art creation — props, characters, and items." },
-  { year: "2026", type: "Job", title: "Prefeitura Municipal de Aracaju — Current", description: "Developer and UI/UX Prototype Designer for municipal technology initiatives." },
 ];
 
 const typeMeta = {

@@ -15,6 +15,7 @@ export const content = {
     experience: {
       title: "Trabalho Atual",
       jobs: [
+        { title: "Programador Pleno - Prefeitura Municipal de Aracaju", desc: "Utilizando tecnologias como Figma, Laravel, Flutter e Vue. Refatorando front-end, adicionando integrações ao back-end do sistema e criando o modo de acessibilidade para pessoas com deficiência visual." },
         { title: "Freelancer Game Dev", desc: "Arquitetura de servidores MMORPG e desenvolvimento (C++, Lua)." }
       ]
     },
@@ -74,6 +75,7 @@ export const content = {
     experience: {
       title: "Current Work",
       jobs: [
+        { title: "Mid-Level Developer - Aracaju City Hall", desc: "Using technologies like Figma, Laravel, Flutter and Vue. Refactoring front-end, adding back-end integrations and building the accessibility mode for visually impaired users." },
         { title: "Game Dev Freelancer", desc: "MMORPG server architecture and development (C++, Lua)." }
       ]
     },
