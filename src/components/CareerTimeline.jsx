@@ -15,7 +15,6 @@ const events = [
   { year: "2018 – 2019", type: "Job", title: "SETUR-SE — Web Designer", description: 'Lead developer for the "Sergipe Sinta de Perto" tourism project. Stack: PHP, WordPress, Bootstrap.' },
   { year: "2020 – 2022", type: "Career Gap", title: "Professional Tattoo Artist", description: "Dedicated exclusively to a career as a professional tattoo artist." },
   { year: "2023 – 2024", type: "Education", title: "Alura — Tech Extension Courses", description: "One year of technology extension courses covering modern web development and software engineering." },
-  { year: "2023 – 2024", type: "Education", title: "New Masters Academy — Arts Academy", description: "One year studying classical and digital art fundamentals. Faculty included industry legends like Glenn Vilppu (Disney)." },
   { year: "2024", type: "Education", title: "Universidade Tiradentes", description: "Systems Analysis & Development — In Progress" },
   { year: "2025", type: "Freelance", title: "MazeOT", description: "Reverse engineering for the creation of an Open Tibia automation bot." },
   { year: "2025", type: "Contract", title: "Causso IT Solutions — Drakmora", description: "Open Tibia server development using TFS/OTX. Stack: C++, Lua, MySQL, Pixel Art." },
