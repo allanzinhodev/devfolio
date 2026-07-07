@@ -26,9 +26,9 @@ export const content = {
     projects: {
       title: "Projetos Principais",
       items: [
+        { name: "Retro Ninja Way", desc: "Open Tibia baseado em Naruto (OTX). Mais de 18 meses de desenvolvimento buscando se desvincular da estética clássica de Tibia. Meu primeiro projeto do tipo foi feito há 18 anos." },
         { name: "Backlands", desc: "MMO adaptado para The Forgotten Server (C++) e OTClient. Perspectiva isométrica inspirada em Final Fantasy Tactics Advance. (Inicialmente feito em Rust).", image: "/capas/sertania.png", slug: "backlands" },
-        { name: "PokeAI", desc: "Bot com inteligência artificial que joga Pokémon de forma autônoma. Leitura de memória em tempo real, sistema de pathfinding e integração com Twitch.", image: "/capas/pokeai.png", slug: "pokeai" },
-        { name: "Retro Ninja Way", desc: "Open Tibia baseado em Naruto (OTX). Mais de 18 meses de desenvolvimento buscando se desvincular da estética clássica de Tibia. Meu primeiro projeto do tipo foi feito há 18 anos." }
+        { name: "PokeAI", desc: "Bot com inteligência artificial que joga Pokémon de forma autônoma. Leitura de memória em tempo real, sistema de pathfinding e integração com Twitch.", image: "/capas/pokeai.png", slug: "pokeai" }
       ]
     },
     folio: {
@@ -91,9 +91,9 @@ export const content = {
     projects: {
       title: "Main Projects",
       items: [
+        { name: "Retro Ninja Way", desc: "Naruto-based Open Tibia (OTX). 18+ months in development breaking away from classic aesthetics. My first similar project was built 18 years ago." },
         { name: "Backlands", desc: "MMO adapted for The Forgotten Server (C++) and OTClient. Isometric perspective inspired by Final Fantasy Tactics Advance. (Initially built in Rust).", image: "/capas/sertania.png", slug: "backlands" },
-        { name: "PokeAI", desc: "AI-powered bot that plays Pokémon autonomously. Real-time memory reading, pathfinding system and Twitch integration.", image: "/capas/pokeai.png", slug: "pokeai" },
-        { name: "Retro Ninja Way", desc: "Naruto-based Open Tibia (OTX). 18+ months in development breaking away from classic aesthetics. My first similar project was built 18 years ago." }
+        { name: "PokeAI", desc: "AI-powered bot that plays Pokémon autonomously. Real-time memory reading, pathfinding system and Twitch integration.", image: "/capas/pokeai.png", slug: "pokeai" }
       ]
     },
     folio: {
