@@ -1,5 +1,6 @@
 // ponytail: Página de detalhes do Backlands, adaptada do pixel-portfolio (Sertania Online).
 import { PixelSeparator } from './PixelSeparator';
+import { TechStackDiagram } from './TechStackDiagram';
 
 export function BacklandsPage({ onClose }) {
   const imgSrc = `${import.meta.env.BASE_URL}capas/sertania.png`;
@@ -100,7 +101,11 @@ export function BacklandsPage({ onClose }) {
 
           <hr className="border-t-2 border-gray-800 my-6" />
 
-          <h3 className="font-press text-sm sm:text-lg text-neon border-b-2 border-neon pb-1">Tech Stack</h3>
+          <h3 className="font-press text-sm sm:text-lg text-neon border-b-2 border-neon pb-1">Technology Stack</h3>
+          <div className="my-8">
+            <TechStackDiagram />
+          </div>
+
           <div className="overflow-x-auto my-6">
             <table className="w-full border-collapse border-2 border-white text-sm">
               <thead className="bg-neon text-black font-press">
