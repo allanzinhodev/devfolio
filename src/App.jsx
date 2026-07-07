@@ -7,9 +7,11 @@ import { ProjectCard } from './components/ProjectCard';
 import { PixelGrid } from './components/PixelGrid';
 import { Footer } from './components/Footer';
 import { CursorCharacter } from './components/CursorCharacter';
+import { CareerTimeline } from './components/CareerTimeline';
 
 function App() {
   const [lang, setLang] = useState('pt');
+  const [showTimeline, setShowTimeline] = useState(false);
   const t = content[lang];
 
   return (
@@ -37,6 +39,22 @@ function App() {
               </div>
             ))}
           </div>
+          
+          <button 
+            onClick={() => setShowTimeline(!showTimeline)}
+            className="mt-8 pixel-border px-6 py-3 font-press text-sm bg-gray-900 hover:bg-neon hover:text-black transition-colors"
+          >
+            {showTimeline 
+              ? (lang === 'pt' ? '✕ Fechar Histórico' : '✕ Close History') 
+              : (lang === 'pt' ? '▸ Ver Histórico de Carreira' : '▸ View Career History')
+            }
+          </button>
+
+          {showTimeline && (
+            <div className="mt-8 animate-fade-in">
+              <CareerTimeline />
+            </div>
+          )}
         </Section>
 
         <Section id="projects" title={t.projects.title}>

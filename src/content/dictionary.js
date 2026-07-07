@@ -1,7 +1,7 @@
 // ponytail: objeto literal simples no lugar de libs complexas de i18n
 export const content = {
   pt: {
-    nav: { about: "Sobre", experience: "Experiência", projects: "Projetos", folio: "Pixel Folio", skills: "Skills", contact: "Contato" },
+    nav: { about: "Sobre", experience: "Trabalho Atual", projects: "Projetos", folio: "Pixel Folio", skills: "Skills", contact: "Contato" },
     hero: {
       role: "Game and Web Developer",
       description: "Desenvolvedor focado em gerar experiências funcionais e divertidas, apaixonado por arquitetura de MMORPG, Pixel Art e Soluções criativas.",
@@ -13,16 +13,15 @@ export const content = {
       text: "Desde os 12 anos de idade desenvolvendo jogos o que acabou influenciando toda a minha vida profissional atuando sempre como desenvolvedor, designer e artista. Atualmente atuo como desenvolvedor web fullstack em horário comercial e artista e programador de games focado em MMORPG como freelancer para empresas do Brasil, Polônia, EUA e tenho como principal Hobby treinar Jiu Jitsu Brasileiro."
     },
     experience: {
-      title: "Experiência",
+      title: "Trabalho Atual",
       jobs: [
-        { title: "Programador Pleno - Prefeitura Municipal de Aracaju", desc: "Desenvolvimento full-stack (Vue, Laravel, Flutter) focado no projeto Integraju." },
         { title: "Freelancer Game Dev", desc: "Arquitetura de servidores MMORPG e desenvolvimento (C++, Lua)." }
       ]
     },
     projects: {
       title: "Projetos Principais",
       items: [
-        { name: "Backlands", desc: "MMO adaptado para The Forgotten Server (C++) e OTClient. Perspectiva isométrica inspirada em Final Fantasy Tactics Advance. (Inicialmente feito em Rust)." },
+        { name: "Backlands", desc: "MMO adaptado para The Forgotten Server (C++) e OTClient. Perspectiva isométrica inspirada em Final Fantasy Tactics Advance. (Inicialmente feito em Rust).", image: "/capas/sertania.png" },
         { name: "Retro Ninja Way", desc: "Open Tibia baseado em Naruto (OTX). Mais de 18 meses de desenvolvimento buscando se desvincular da estética clássica de Tibia. Meu primeiro projeto do tipo foi feito há 18 anos." }
       ]
     },
@@ -61,7 +60,7 @@ export const content = {
     }
   },
   en: {
-    nav: { about: "About", experience: "Experience", projects: "Projects", folio: "Pixel Folio", skills: "Skills", contact: "Contact" },
+    nav: { about: "About", experience: "Current Work", projects: "Projects", folio: "Pixel Folio", skills: "Skills", contact: "Contact" },
     hero: {
       role: "Game and Web Developer",
       description: "Developer focused on creating functional and fun experiences, passionate about MMORPG architecture, Pixel Art, and Creative solutions.",
@@ -73,16 +72,15 @@ export const content = {
       text: "Developing games since I was 12 years old, which ultimately influenced my entire professional life, always acting as a developer, designer, and artist. Currently, I work as a full-stack web developer during business hours, and as a game artist and programmer focused on MMORPGs as a freelancer for companies in Brazil, Poland, USA, and my main hobby is training Brazilian Jiu Jitsu."
     },
     experience: {
-      title: "Experience",
+      title: "Current Work",
       jobs: [
-        { title: "Mid-Level Developer - Aracaju City Hall", desc: "Full-stack development (Vue, Laravel, Flutter) focused on the Integraju project." },
         { title: "Game Dev Freelancer", desc: "MMORPG server architecture and development (C++, Lua)." }
       ]
     },
     projects: {
       title: "Main Projects",
       items: [
-        { name: "Backlands", desc: "MMO adapted for The Forgotten Server (C++) and OTClient. Isometric perspective inspired by Final Fantasy Tactics Advance. (Initially built in Rust)." },
+        { name: "Backlands", desc: "MMO adapted for The Forgotten Server (C++) and OTClient. Isometric perspective inspired by Final Fantasy Tactics Advance. (Initially built in Rust).", image: "/capas/sertania.png" },
         { name: "Retro Ninja Way", desc: "Naruto-based Open Tibia (OTX). 18+ months in development breaking away from classic aesthetics. My first similar project was built 18 years ago." }
       ]
     },
