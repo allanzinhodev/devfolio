@@ -181,9 +181,14 @@ A progressão é **híbrida** e tem três camadas independentes que se somam.
 Mede a progressão geral do personagem. Libera acesso a áreas, equipamentos e conteúdo.
 
 ### 2. Job level (magic level)
-Equivalente ao magic level / job progression. Representa a maturidade na classe e destrava tiers da árvore de habilidades — skills, passivas e especializações.
+Equivalente ao magic level / job progression. Representa a maturidade na classe e destrava tiers da árvore de habilidades. Cada nível concede um **ponto de habilidade** para gastar em skills, passivas e especializações.
 
-**Regra de perda.** O magic level pode perder XP (por exemplo, ao morrer), mas nunca regride de nível — o jogador retrocede dentro do nível atual, porém jamais perde um nível já conquistado.
+**Perda ao morrer e integridade dos pontos.** O magic level pode perder XP ao morrer e, se a perda for suficiente, cair de nível. Para os pontos nunca ficarem dessincronizados dos níveis:
+- O sistema guarda em uma variável o **último ponto adicionado** (uma pilha dos pontos ganhos por nível).
+- Ao perder um nível, o **ponto correspondente daquele nível é removido** junto.
+- Se não houver **ponto livre** (todos já gastos na árvore), o sistema estorna o **último ponto alocado**, retirando-o da habilidade onde ele estava.
+
+Assim, o jogador nunca mantém um ponto que veio de um nível perdido.
 
 ### 3. Weapon proficiency
 Algumas armas acumulam proficiência pelo uso contínuo. Serve para aprender habilidades de arma ou ganhar passivas que melhoram habilidades existentes.
