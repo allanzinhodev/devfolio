@@ -4,10 +4,10 @@
 export const meta = {
   title: 'Backlands MMO',
   pitch:
-    'Um MMORPG oldschool de mundo aberto que transforma o folclore, as religiões e as crenças populares brasileiras em uma experiência de RPG original, construída sobre The Forgotten Server e OTClient.',
+    'Um servidor custom de Tibia moderno com downgrade para o conteúdo pré-7.7 para diminuir a quantidade de informação. Uma experiência de RPG original enraizada no folclore e crenças brasileiras.',
   genre: 'MMORPG 2D — perspectiva 45° (estilo Tibia)',
   platform: 'PC — cliente OTClient sobre servidor TFS',
-  status: 'Documento interno de design — v0.1',
+  status: 'Em Desenvolvimento',
 };
 
 // Resumo "1 página" — o .md enxuto para baixar no topo da página.

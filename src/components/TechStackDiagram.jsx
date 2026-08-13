@@ -116,7 +116,7 @@ const initialNodes = [
     id: "otclient",
     type: "pixelNode",
     position: { x: 20, y: 25 },
-    data: { label: "OTClient", sub: "Player Interface", group: "GAME CLIENT", accent: PINK },
+    data: { label: "AstraClient", sub: "C++ & Lua", group: "GAME CLIENT", accent: PINK },
   },
 
   // Game Server
@@ -124,7 +124,7 @@ const initialNodes = [
     id: "tfs",
     type: "pixelNode",
     position: { x: 280, y: 25 },
-    data: { label: "TFS 1.4.2", sub: "C++ Game Engine", group: "GAME SERVER", accent: CYAN },
+    data: { label: "TFS 1.8 Down", sub: "C++23 Game Engine", group: "GAME SERVER", accent: CYAN },
   },
 
   // Database
@@ -132,21 +132,15 @@ const initialNodes = [
     id: "mysql",
     type: "pixelNode",
     position: { x: 560, y: 25 },
-    data: { label: "MySQL", sub: "Data Persistence", group: "DATABASE", accent: ROSE },
+    data: { label: "MariaDB", sub: "Data Persistence", group: "DATABASE", accent: ROSE },
   },
 
   // Web Layer
   {
-    id: "nginx",
+    id: "devfolio",
     type: "pixelNode",
-    position: { x: 200, y: 255 },
-    data: { label: "NGINX", sub: "Web Server", group: "WEB LAYER", accent: GOLD },
-  },
-  {
-    id: "myacc",
-    type: "pixelNode",
-    position: { x: 400, y: 255 },
-    data: { label: "MyAcc", sub: "Account System", group: "WEB LAYER", accent: GOLD },
+    position: { x: 280, y: 255 },
+    data: { label: "Devfolio", sub: "React + Vite", group: "WEB LAYER", accent: GOLD },
   },
 
   // Dev Tools
@@ -154,13 +148,13 @@ const initialNodes = [
     id: "rme",
     type: "pixelNode",
     position: { x: 20, y: 365 },
-    data: { label: "RME", sub: "Map Editor", group: "DEV TOOLS", accent: LIME },
+    data: { label: "NexaMap", sub: "Map Editor", group: "DEV TOOLS", accent: LIME },
   },
   {
     id: "objbuilder",
     type: "pixelNode",
     position: { x: 240, y: 365 },
-    data: { label: "Object Builder", sub: "Sprites & Assets", group: "DEV TOOLS", accent: LIME },
+    data: { label: "Object Builder", sub: "Reference & Assets", group: "DEV TOOLS", accent: LIME },
   },
 ];
 
@@ -176,10 +170,8 @@ const initialEdges = [
   { id: "e1", source: "otclient", target: "tfs", animated: true, style: edgeStyle(PINK), ...lbl("TCP :7171") },
   // TFS ↔ MySQL
   { id: "e2", source: "tfs", target: "mysql", animated: false, style: edgeStyle(ROSE), ...lbl("Read/Write") },
-  // NGINX → MyAcc
-  { id: "e3", source: "nginx", target: "myacc", animated: false, style: edgeStyle(GOLD), ...lbl("serves") },
-  // MyAcc ↔ MySQL
-  { id: "e4", source: "myacc", target: "mysql", animated: false, style: edgeStyle(ROSE), ...lbl("accounts") },
+  // Devfolio ↔ TFS (API / Accounts)
+  { id: "e3", source: "devfolio", target: "tfs", animated: false, style: edgeStyle(GOLD), ...lbl("API / Web") },
   // RME → TFS (map files)
   { id: "e5", source: "rme", target: "tfs", animated: false, style: edgeStyle(LIME), ...lbl("map files") },
   // Object Builder → TFS (sprites/dat)
@@ -234,7 +226,7 @@ function DiagramInner() {
           pointerEvents: "none",
         }}
       >
-        Custom MMORPG · TFS · MySQL · OTClient · NGINX
+        Custom MMORPG · TFS 1.8 · MariaDB · AstraClient · NexaMap
       </div>
 
       <ReactFlow

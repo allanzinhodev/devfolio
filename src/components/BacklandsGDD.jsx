@@ -1,24 +1,8 @@
-// Página privada do GDD do Backlands MMO (rota /backlands).
-// Não é linkada em nenhuma página do portfólio — é um link solto para enviar ao sócio.
 import { useState } from 'react';
-import { meta, condensedMd, sections, buildFullMd } from '../content/backlandsGdd';
+import { meta } from '../content/backlandsGdd';
 import { todoSections } from '../content/todoData';
-import { MarkdownLite } from './MarkdownLite';
 import { PixelSeparator } from './PixelSeparator';
-import { downloadMd } from '../utils/download';
-
-function DownloadButton({ onClick, children, primary }) {
-  const base =
-    'pixel-border px-4 py-3 font-press text-[10px] sm:text-xs transition-colors inline-flex items-center gap-2';
-  const style = primary
-    ? 'bg-neon text-black hover:bg-white'
-    : 'bg-gray-900 text-white hover:bg-neon hover:text-black';
-  return (
-    <button onClick={onClick} className={`${base} ${style}`}>
-      {children}
-    </button>
-  );
-}
+import { TechStackDiagram } from './TechStackDiagram';
 
 function TodoCarouselCard({ section }) {
   const [slide, setSlide] = useState(0); // 0 = Conceito, 1 = Progresso
@@ -163,25 +147,100 @@ function TodoCarouselCard({ section }) {
   );
 }
 
-export function BacklandsGDD() {
-  const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState('gdd'); // 'gdd' ou 'todo'
-  const bannerSrc = `${import.meta.env.BASE_URL}capas/sertania.png`;
+function JogoLandingPage() {
+    return (
+        <div className="space-y-12 text-gray-300 animate-fade-in">
+            <section className="pixel-border bg-gray-900/60 p-6 sm:p-10">
+                <h2 className="font-press text-xl text-neon mb-6">O que é o Backlands?</h2>
+                <div className="text-lg leading-relaxed space-y-4">
+                    <p>
+                        Backlands é um <strong>servidor custom de Tibia moderno</strong>, construído sobre The Forgotten Server e OTClient, porém com um conceito fundamental:
+                        um <strong>downgrade para o conteúdo pré-7.7</strong>.
+                    </p>
+                    <p>
+                        O Tibia moderno possui uma quantidade massiva de sistemas, itens e informações que muitas vezes sobrecarregam o jogador. 
+                        Ao retornarmos para uma base pré-7.7, nós <strong>diminuímos a quantidade de informação</strong> e focamos no que importa: 
+                        um combate mais legível, uma progressão clara e uma experiência oldschool verdadeira.
+                    </p>
+                </div>
+            </section>
 
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="pixel-border bg-gray-900/40 p-6 hover:border-neon transition-colors">
+                    <h3 className="font-press text-sm text-white mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-neon inline-block"></span>
+                        Folclore Brasileiro
+                    </h3>
+                    <p className="leading-relaxed">
+                        A ambientação abandona a fantasia medieval europeia padrão. O jogo é profundamente enraizado 
+                        no folclore, religiões e crenças populares brasileiras. Enfrente criaturas do sertão, explore a caatinga e a mata, e conheça lendas vivas.
+                    </p>
+                </div>
+
+                <div className="pixel-border bg-gray-900/40 p-6 hover:border-neon transition-colors">
+                    <h3 className="font-press text-sm text-white mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-neon inline-block"></span>
+                        Progressão Direta
+                    </h3>
+                    <p className="leading-relaxed">
+                        Três camadas independentes: Level (acesso ao mundo), Job Level (desbloqueio de skills da classe) e Proficiência de Arma (bônus pelo uso).
+                        Comece Unranked e evolua para Guerreiro, Arqueiro ou Mago, com evoluções reais sem árvores confusas.
+                    </p>
+                </div>
+            </section>
+            
+            <PixelSeparator />
+
+            <section className="space-y-8 pixel-border bg-black p-6 sm:p-10">
+                <h2 className="font-press text-xl text-neon text-center mb-8">Nossa Base Tecnológica</h2>
+                <div className="my-8">
+                  <TechStackDiagram />
+                </div>
+
+                <div className="overflow-x-auto mt-8">
+                  <table className="w-full border-collapse border-2 border-white text-sm">
+                    <thead className="bg-neon text-black font-press">
+                      <tr>
+                        <th className="border-2 border-white px-4 py-3 text-left">Camada</th>
+                        <th className="border-2 border-white px-4 py-3 text-left">Tecnologia</th>
+                        <th className="border-2 border-white px-4 py-3 text-left">Papel</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-gray-900 text-gray-300">
+                      {[
+                        ["Engine do Jogo", "TFS 1.8 Downgrade (C++23 + Lua 5.5)", "Lógica principal"],
+                        ["Banco de Dados", "MariaDB", "Persistência de dados"],
+                        ["Cliente do Jogo", "AstraClient (C++ + Lua)", "Interface do jogador"],
+                        ["Edição de Mapa", "NexaMap Editor (C++20)", "Design do mundo"],
+                        ["Criação de Assets", "Object Builder", "Referência e assets"],
+                        ["Ferramentas & Site", "React + Vite + Tailwind", "Frontend e Workspace"],
+                      ].map(([layer, tech, role]) => (
+                        <tr key={layer} className="border-b border-gray-700 hover:bg-gray-800 transition-colors">
+                          <td className="border-2 border-gray-700 px-4 py-3">{layer}</td>
+                          <td className="border-2 border-gray-700 px-4 py-3 text-neon font-bold">{tech}</td>
+                          <td className="border-2 border-gray-700 px-4 py-3">{role}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+            </section>
+        </div>
+    );
+}
+
+export function BacklandsGDD() {
+  const [activeTab, setActiveTab] = useState('jogo'); // 'jogo' ou 'desenvolvimento'
+  const bannerSrc = `${import.meta.env.BASE_URL}capas/sertania.png`;
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Barra superior mínima (sem navegação para o portfólio) */}
+      {/* Barra superior mínima */}
       <header className="sticky top-0 z-40 bg-black/90 border-b-2 border-white backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
           <div className="font-press text-sm sm:text-lg text-neon">BACKLANDS</div>
           <span className="font-press text-[9px] sm:text-[10px] text-gray-500 border-2 border-gray-700 px-2 py-1">
-            DOC INTERNO
+            PORTAL DO PROJETO
           </span>
         </div>
       </header>
@@ -204,7 +263,7 @@ export function BacklandsGDD() {
         <div className="relative mb-10">
           <div className="absolute -inset-1 border-4 border-neon/30 z-0" aria-hidden="true"></div>
           <div className="relative z-10 pixel-border bg-gray-900/70 p-6 sm:p-10">
-            <p className="font-press text-[10px] text-neon mb-4">GAME DESIGN DOCUMENT</p>
+            <p className="font-press text-[10px] text-neon mb-4">SOBRE O PROJETO</p>
             <h1 className="font-press text-3xl sm:text-5xl text-white leading-tight mb-5">
               {meta.title}
             </h1>
@@ -227,101 +286,33 @@ export function BacklandsGDD() {
           </div>
         </div>
 
-        {/* DOWNLOADS PRINCIPAIS */}
-        <div className="pixel-border bg-gray-900/60 p-5 sm:p-6 mb-8">
-          <h2 className="font-press text-sm text-white mb-1">Baixar o documento</h2>
-          <p className="text-gray-400 text-lg mb-5">
-            Comece pelo resumo de uma página. Precisa de mais detalhe? Baixe o GDD completo ou
-            apenas a seção que interessa (botão em cada seção abaixo).
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <DownloadButton
-              primary
-              onClick={() => downloadMd(condensedMd, 'backlands-gdd-resumo.md')}
-            >
-              ⬇ RESUMO (1 PÁGINA) .MD
-            </DownloadButton>
-            <DownloadButton onClick={() => downloadMd(buildFullMd(), 'backlands-gdd-completo.md')}>
-              ⬇ GDD COMPLETO .MD
-            </DownloadButton>
-            <div className="relative">
-              <DownloadButton onClick={copyLink}>🔗 COPIAR LINK</DownloadButton>
-              {copied && (
-                <span className="absolute -top-9 left-1/2 -translate-x-1/2 bg-gray-800 text-neon text-xs px-2 py-1 pixel-border whitespace-nowrap">
-                  Copiado!
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
         {/* SELETOR DE ABAS */}
         <div className="flex gap-3 mb-10 border-b-2 border-gray-800 pb-3">
           <button
-            onClick={() => setActiveTab('gdd')}
+            onClick={() => setActiveTab('jogo')}
             className={`pixel-border px-4 py-3 font-press text-[10px] sm:text-xs transition-colors ${
-              activeTab === 'gdd'
+              activeTab === 'jogo'
                 ? 'bg-neon text-black border-neon font-bold'
                 : 'bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800'
             }`}
           >
-            📖 DOCUMENTO GDD
+            ⚔️ O JOGO
           </button>
           <button
-            onClick={() => setActiveTab('todo')}
+            onClick={() => setActiveTab('desenvolvimento')}
             className={`pixel-border px-4 py-3 font-press text-[10px] sm:text-xs transition-colors ${
-              activeTab === 'todo'
+              activeTab === 'desenvolvimento'
                 ? 'bg-neon text-black border-neon font-bold'
                 : 'bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800'
             }`}
           >
-            🛠️ PAINEL TODO
+            🛠️ DESENVOLVIMENTO
           </button>
         </div>
 
         {/* CONTEÚDO CONDICIONAL POR ABA */}
-        {activeTab === 'gdd' ? (
-          <>
-            {/* ÍNDICE */}
-            <nav className="pixel-border bg-black p-5 sm:p-6 mb-10">
-              <h2 className="font-press text-[10px] text-neon mb-4">ÍNDICE</h2>
-              <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-                {sections.map((s, i) => (
-                  <li key={s.id}>
-                    <a
-                      href={`#${s.id}`}
-                      className="text-gray-300 hover:text-neon transition-colors text-lg flex items-baseline gap-3"
-                    >
-                      <span className="font-press text-[10px] text-gray-600">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      {s.title}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-
-            {/* SEÇÕES */}
-            {sections.map((s, i) => (
-              <section key={s.id} id={s.id} className="scroll-mt-24 mb-4">
-                <div className="flex items-start justify-between gap-4 mb-2">
-                  <span className="font-press text-[10px] text-neon pt-1">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <button
-                    onClick={() => downloadMd(s.md + '\n', `backlands-${s.id}.md`)}
-                    className="pixel-border px-3 py-2 font-press text-[9px] bg-gray-900 hover:bg-neon hover:text-black transition-colors whitespace-nowrap flex-shrink-0"
-                    title={`Baixar a seção "${s.title}" em .md`}
-                  >
-                    ⬇ .MD
-                  </button>
-                </div>
-                <MarkdownLite md={s.md} />
-                <PixelSeparator />
-              </section>
-            ))}
-          </>
+        {activeTab === 'jogo' ? (
+            <JogoLandingPage />
         ) : (
           <div className="animate-fade-in">
             {todoSections.map((section) => (
@@ -333,7 +324,7 @@ export function BacklandsGDD() {
         {/* RODAPÉ */}
         <footer className="mt-16 pt-8 border-t-2 border-neon text-center">
           <p className="text-gray-500 text-sm">
-            Backlands MMO — documento interno de design. {new Date().getFullYear()}.
+            Backlands MMO — {new Date().getFullYear()}.
           </p>
         </footer>
       </main>
