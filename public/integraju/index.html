@@ -36,6 +36,59 @@
   }
 
   .page { max-width: 1100px; margin: 0 auto; padding: 36px 20px 90px; }
+
+  /* Barra fixa do toggle */
+  .barra {
+    position: sticky; top: 0; z-index: 20; margin: -36px -20px 24px;
+    padding: 12px 20px; background: rgba(238,241,245,.86);
+    backdrop-filter: blur(10px); border-bottom: 1px solid #dde3ea;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .barra label { display: flex; align-items: center; gap: 9px; cursor: pointer; font-size: 13.5px; font-weight: 600; }
+  .barra input { width: 17px; height: 17px; accent-color: var(--laranja); cursor: pointer; }
+  .barra small { color: #6b7885; font-weight: 400; }
+
+  /* ------------------------------------------------------------------
+     MODO VIDRO
+
+     Aplicado só sobre os cards, não sobre o painel — o efeito depende de
+     ter algo colorido atrás para desfocar, e o painel já é esse fundo.
+
+     Dois cuidados que o efeito costuma exigir:
+     - `backdrop-filter` precisa de fundo semitransparente para valer algo;
+       por isso os cards brancos viram rgba, senão o blur não aparece.
+     - a borda clara no topo e a sombra interna simulam a espessura do
+       vidro; sem elas o card lê como "branco sujo" em vez de translúcido.
+     ------------------------------------------------------------------ */
+  .glass .painel .card {
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+    border: 1px solid rgba(255,255,255,.42);
+    box-shadow:
+      0 8px 24px rgba(22,36,61,.16),
+      inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  /* Painéis de fundo claro (2 e 6): o vidro precisa de contraste, então
+     ali o card escurece de leve em vez de clarear. */
+  .glass .v1 .card, .glass .v3 .card { background: rgba(255,255,255,.30); }
+  .glass .v4 .card, .glass .v7 .card, .glass .v8 .card { background: rgba(255,255,255,.10); }
+  .glass .v5 .card { background: rgba(255,255,255,.14); }
+  .glass .v2 .card, .glass .v6 .card { background: rgba(255,255,255,.55); border-color: rgba(255,255,255,.85); }
+
+  .glass .v1 .card, .glass .v3 .card, .glass .v5 .card { color: var(--navy); }
+  .glass .v1 .card::after, .glass .v4 .card::after { opacity: 0; }
+
+  /* Botões do carrossel acompanham */
+  .glass .nav button {
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.45);
+  }
+
+  .glass .painel .card:hover {
+    box-shadow:
+      0 16px 34px rgba(22,36,61,.24),
+      inset 0 1px 0 rgba(255,255,255,.7);
+  }
   .page > h1 { font-size: 22px; margin: 0 0 4px; }
   .page > p { margin: 0 0 8px; color: #5b6b7a; font-size: 14px; }
 
@@ -365,8 +418,16 @@
 <body>
 <div class="page">
 
+  <div class="barra">
+    <label>
+      <input type="checkbox" id="glassToggle" />
+      Efeito vidro
+      <small>aplica backdrop-filter nos cards de todas as versões</small>
+    </label>
+  </div>
+
   <h1>Serviços em Destaque</h1>
-  <p>Seis releituras do componente. Marcação e ícones idênticos — só a estilização muda.</p>
+  <p>Oito releituras do componente. Marcação e ícones idênticos — só a estilização muda.</p>
 
   <section class="variant"><div class="rotulo"><b>1. Referência refinada</b><span>mais respiro, sombra suave, hover vivo</span></div><div class="painel v1"></div></section>
   <section class="variant"><div class="rotulo"><b>2. Painel claro</b><span>laranja como acento, menos peso visual</span></div><div class="painel v2"></div></section>
@@ -428,6 +489,19 @@
     </div>`;
 
   document.querySelectorAll('.painel').forEach((el) => { el.innerHTML = painel; });
+
+  // Modo vidro: uma classe no <body> liga o efeito em todas as versões de uma
+  // vez. Preferência guardada para não perder ao recarregar.
+  const toggle = document.getElementById('glassToggle');
+  const aplicar = (on) => document.body.classList.toggle('glass', on);
+
+  toggle.checked = localStorage.getItem('glass') === '1';
+  aplicar(toggle.checked);
+
+  toggle.addEventListener('change', () => {
+    aplicar(toggle.checked);
+    localStorage.setItem('glass', toggle.checked ? '1' : '0');
+  });
 </script>
 </body>
 </html>
