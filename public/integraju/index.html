@@ -303,6 +303,39 @@
   .v7 .dot { background: rgba(255,255,255,.30); }
   .v7 .dot.on { background: var(--laranja); }
 
+  /* ============================================================ 8
+     Mesma paleta navy da 7, mas com o ícone ACIMA do nome e maior.
+     Empilhado, o ícone vira o elemento de leitura primária — o que faz
+     sentido aqui porque os desenhos são distintos entre si. O disco sobe
+     para 58px, contra 42px da 7. */
+  .v8 {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(90% 70% at 0% 0%, rgba(247,144,33,.20) 0%, rgba(247,144,33,0) 58%),
+      linear-gradient(160deg, #1E3252 0%, var(--navy) 55%, #0E1829 100%);
+    border-radius: 24px; padding: 32px 28px 26px;
+    box-shadow: 0 16px 34px rgba(14,24,41,.32);
+  }
+  .v8 .titulo, .v8 .grade, .v8 .nav { position: relative; z-index: 1; }
+  .v8 .titulo .l1 { color: var(--laranja); }
+  .v8 .titulo .l2 { color: var(--branco); }
+  .v8 .card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px; padding: 22px 12px 18px; text-align: center; color: var(--branco);
+    transition: background .22s ease, transform .22s ease, border-color .22s ease;
+  }
+  .v8 .card:hover { background: rgba(255,255,255,.13); border-color: var(--laranja); transform: translateY(-5px); }
+  .v8 .box {
+    width: 58px; height: 58px; margin: 0 auto 13px; padding: 12px;
+    border-radius: 50%; background: var(--laranja); color: var(--navy);
+    transition: transform .22s ease;
+  }
+  .v8 .card:hover .box { transform: scale(1.07); }
+  .v8 .nome { font-size: 13px; font-weight: 600; }
+  .v8 .nav button { background: var(--laranja); color: var(--navy); }
+  .v8 .dot { background: rgba(255,255,255,.30); }
+  .v8 .dot.on { background: var(--laranja); }
+
   /* ------------------------------------------------------------------
      Demonstração de largura estreita.
 
@@ -342,6 +375,7 @@
   <section class="variant"><div class="rotulo"><b>5. Grade aberta</b><span>sem cartão, dividido por linhas</span></div><div class="painel v5"></div></section>
   <section class="variant"><div class="rotulo"><b>6. Cartão largo</b><span>ícone à esquerda, melhor para nomes longos</span></div><div class="painel v6"></div></section>
   <section class="variant"><div class="rotulo"><b>7. Cartão largo + paleta navy</b><span>layout da 6 com as cores da 4</span></div><div class="painel v7"></div></section>
+  <section class="variant"><div class="rotulo"><b>8. Navy empilhado</b><span>mesma paleta da 7, ícone acima do nome e maior</span></div><div class="painel v8"></div></section>
 
   <section class="variant">
     <div class="rotulo"><b>Largura estreita</b><span>a terceira coluna desce — mesma marcação, container de 460px</span></div>
