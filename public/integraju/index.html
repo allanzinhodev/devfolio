@@ -449,18 +449,20 @@
 <script>
   // Mesma forma que a API devolve em AssuntosController::highlighted:
   //   { id, name, icon }  — icon vem de json->icone
-  // `icon` e o valor de json->icone; a imagem vive em BASE_ICONES + icon + '.png'.
-  // Os tres marcados como null nao tiveram o nome do arquivo descoberto (a
-  // listagem do diretorio responde 403 e o nome nao deriva do rotulo).
-  // Preencha com o valor real de json->icone e o icone aparece.
-  const BASE_ICONES = 'https://homo.aracaju.se.gov.br/images/icons-servicos/';
+  // Os PNG foram baixados para ./icons/ — antes apontavam para o dominio de
+  // homologacao, que nao resolve em producao.
+  const BASE_ICONES = './icons/';
 
+  // Tres servicos usam icone EMPRESTADO (marcados com `substituto`): o nome do
+  // arquivo original nao foi descoberto, porque a listagem do diretorio responde
+  // 403 e o nome nao deriva do rotulo (Zona de Expansao e ico-expansao, nao
+  // ico-zonadeexpansao). Basta trocar pelo valor real de json->icone.
   const servicos = [
     { id: 1, name: 'AjuInteligente',                    icon: 'ico-ajuinteligente' },
     { id: 2, name: 'Zona de Expansão',                  icon: 'ico-expansao' },
-    { id: 3, name: 'Portal do Contribuinte',            icon: null },
-    { id: 4, name: 'Aracaju Transparência',             icon: null },
-    { id: 5, name: 'Atendimento ao Servidor Municipal', icon: null },
+    { id: 3, name: 'Portal do Contribuinte',            icon: 'ico-nfse',            substituto: true },
+    { id: 4, name: 'Aracaju Transparência',             icon: 'ico-cidademelhor',    substituto: true },
+    { id: 5, name: 'Atendimento ao Servidor Municipal', icon: 'ico-ajuinteligente',  substituto: true },
     { id: 6, name: 'Procon',                            icon: 'ico-procon' },
     { id: 7, name: 'Defesa Civil',                      icon: 'ico-defesacivil' },
     { id: 8, name: 'Feiras Livres',                     icon: 'ico-feiraslivres' },
