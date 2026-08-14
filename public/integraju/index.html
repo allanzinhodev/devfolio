@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Serviços em Destaque — 6 versões</title>
+<style>
+  /* ------------------------------------------------------------------
+     Seis releituras do componente "Serviços em destaque" do portal.
+     Tudo em CSS puro, sem dependência.
+
+     Os ÍCONES não mudam: existe um único slot `.ico` compartilhado pelas
+     seis versões. Troque só a função iconeHtml() pelo componente de ícone
+     real — nenhum estilo aqui depende do desenho.
+
+     Dado de origem (AssuntosController::highlighted):
+       { id, name, icon }   icon vem de json->icone
+     ------------------------------------------------------------------ */
+
+  :root {
+    --laranja: #F79021;
+    --laranja-esc: #E07C12;
+    --laranja-claro: #FFA94D;
+    --navy: #16243D;
+    --azul-icone: #1B5FA8;
+    --branco: #fff;
+    --linha: rgba(22,36,61,.10);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0; background: #eef1f5; color: var(--navy);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.45;
+  }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 36px 20px 90px; }
+  .page > h1 { font-size: 22px; margin: 0 0 4px; }
+  .page > p { margin: 0 0 8px; color: #5b6b7a; font-size: 14px; }
+
+  .variant { margin-top: 52px; }
+  .rotulo {
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 13px; color: #5b6b7a; margin-bottom: 14px;
+  }
+  .rotulo b { font-size: 15px; color: var(--navy); }
+
+  /* Título do painel — mantém a ideia do original (duas linhas, dois pesos),
+     mas com tracking negativo e a segunda linha mais pesada, o que dá o
+     contraste que no original vinha só da cor. */
+  .titulo { margin: 0 0 24px; line-height: 1.0; letter-spacing: -.035em; }
+  .titulo .l1 { display: block; font-size: 34px; font-weight: 600; color: var(--branco); }
+  .titulo .l2 { display: block; font-size: 34px; font-weight: 800; color: var(--navy); }
+
+  .grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .grade { grid-template-columns: repeat(2, 1fr); } }
+
+  a.card { text-decoration: none; color: inherit; display: block; }
+
+  /* Rótulo calibrado pela referência: lá o texto é discreto (~11px num card de
+     ~185px), peso médio, não negrito. O que muda aqui é só o que corrigia
+     defeito: `balance` evita órfã e a altura mínima de 2 linhas iguala os
+     cards — no original "Atendimento ao Servidor Municipal" empurrava a altura
+     da linha inteira da grade. */
+  .nome {
+    font-size: 12.5px; font-weight: 500; letter-spacing: -.005em; line-height: 1.32;
+    text-wrap: balance; display: block; min-height: 2.64em;
+  }
+  .v6 .nome { min-height: 0; font-size: 13.5px; font-weight: 600; }
+
+  /* Slot do ícone — idêntico nas 6 versões.
+     Os PNG vêm com fundo transparente e traço azul; `object-fit: contain`
+     mantém a proporção em qualquer tamanho de caixa. */
+  img.ico { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+  /* Proporção calibrada pela referência: lá o ícone ocupa ~1/6 da largura do
+     card, bem mais discreto do que eu tinha posto. Caixa de 38px com inset
+     uniforme, para os PNG quadrados (cidademelhor, expansao) não lerem maiores
+     que os 187x174 da família padrão. A versão 6 fica de fora — é a diferentona. */
+  .v1 .box, .v2 .box, .v3 .box, .v5 .box {
+    width: 38px; height: 38px; margin: 0 auto 11px; padding: 3px;
+  }
+  .v4 .box { width: 44px; height: 44px; margin: 0 auto 11px; padding: 10px; }
+  i.ico {
+    display: grid; place-items: center; width: 100%; height: 100%;
+    font-size: 19px; font-weight: 700; font-style: normal; letter-spacing: -.03em;
+    border: 1.5px dashed currentColor; border-radius: 10px; opacity: .5;
+  }
+
+  /* Carrossel — presente em todas, só muda a cor */
+  .nav { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 22px; }
+  .nav button {
+    width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer;
+    display: grid; place-items: center; font-size: 15px; line-height: 1;
+    transition: transform .18s ease, filter .18s ease;
+  }
+  .nav button:hover { transform: scale(1.09); }
+  .dots { display: flex; gap: 7px; margin: 0 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* ============================================================ 1
+     Painel em degradê diagonal com brilho radial, cards de vidro fosco e
+     borda que acende no hover. É a versão mais trabalhada das seis. */
+  .v1 {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 12% 0%, #FFC46B 0%, rgba(255,196,107,0) 55%),
+      radial-gradient(90% 80% at 100% 100%, #F2660E 0%, rgba(242,102,14,0) 60%),
+      linear-gradient(135deg, #FBA033 0%, var(--laranja) 45%, #E8760F 100%);
+    border-radius: 24px; padding: 34px 30px 26px;
+    box-shadow: 0 18px 40px rgba(224,124,18,.30);
+  }
+  /* Textura sutil: pontinhos claros que quebram o chapado do degradê. */
+  .v1::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 22px 22px; opacity: .13;
+  }
+  .v1 .titulo, .v1 .grade, .v1 .nav { position: relative; z-index: 1; }
+  .v1 .titulo .l1 { color: rgba(255,255,255,.95); }
+  .v1 .titulo .l2 { color: var(--navy); }
+
+  .v1 .card {
+    position: relative;
+    background: linear-gradient(180deg, #fff 0%, #FFF8F0 100%);
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 16px; padding: 20px 12px 18px; text-align: center;
+    box-shadow: 0 2px 6px rgba(120,60,0,.13);
+    transition: transform .24s cubic-bezier(.2,.8,.3,1), box-shadow .24s ease;
+  }
+  /* Anel em degradê revelado no hover, via mask — não altera o layout. */
+  .v1 .card::after {
+    content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 2px;
+    background: linear-gradient(135deg, #FFD089, var(--navy));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .24s ease;
+  }
+  .v1 .card:hover { transform: translateY(-6px); box-shadow: 0 18px 32px rgba(120,60,0,.26); }
+  .v1 .card:hover::after { opacity: 1; }
+  .v1 .box { color: var(--azul-icone); }
+  .v1 .nav button {
+    background: linear-gradient(180deg, #fff, #FFEFDC); color: var(--laranja-esc);
+    box-shadow: 0 2px 6px rgba(120,60,0,.20);
+  }
+  .v1 .dot { background: rgba(255,255,255,.55); }
+  .v1 .dot.on { background: var(--navy); }
+
+  /* ============================================================ 2
+     Painel claro, laranja só como acento — reduz o peso visual */
+  .v2 { background: var(--branco); border-radius: 22px; padding: 30px 28px 24px; box-shadow: 0 2px 14px rgba(22,36,61,.08); }
+  .v2 .titulo .l1 { color: var(--laranja); }
+  .v2 .titulo .l2 { color: var(--navy); }
+  .v2 .card {
+    background: #f7f9fc; border: 1px solid var(--linha); border-radius: 14px;
+    padding: 20px 12px; text-align: center;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .v2 .card:hover { background: #fff7ee; border-color: var(--laranja-claro); transform: translateY(-3px); }
+  .v2 .box { width: 46px; height: 46px; margin: 0 auto 12px; color: var(--azul-icone); }
+  .v2 .nav button { background: #f1f4f8; color: var(--laranja-esc); }
+  .v2 .dot { background: #d8dee6; }
+  .v2 .dot.on { background: var(--laranja); }
+
+  /* ============================================================ 3
+     Cartões com barra inferior que preenche no hover */
+  /* Fundo: degradê em três paradas com uma faixa diagonal clara atravessando —
+     dá direção ao painel sem competir com os cards brancos. */
+  .v3 {
+    position: relative; overflow: hidden;
+    background:
+      linear-gradient(105deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 38%),
+      linear-gradient(160deg, #FFB347 0%, var(--laranja) 42%, #DE7208 100%);
+    border-radius: 24px; padding: 32px 28px 26px;
+    box-shadow: 0 16px 34px rgba(222,114,8,.26);
+  }
+  /* Arco luminoso no canto superior direito. */
+  .v3::before {
+    content: ""; position: absolute; width: 420px; height: 420px;
+    top: -230px; right: -120px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(255,255,255,.30) 0%, rgba(255,255,255,0) 68%);
+  }
+  .v3 .titulo, .v3 .grade, .v3 .nav { position: relative; z-index: 1; }
+  .v3 .card {
+    position: relative; overflow: hidden;
+    background: var(--branco); border-radius: 14px; padding: 20px 12px 22px;
+    text-align: center; transition: transform .2s ease;
+  }
+  .v3 .card::after {
+    content: ""; position: absolute; inset: auto 0 0 0; height: 4px;
+    background: var(--navy); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .v3 .card:hover { transform: translateY(-4px); }
+  .v3 .card:hover::after { transform: scaleX(1); }
+  .v3 .box { width: 46px; height: 46px; margin: 0 auto 12px; color: var(--azul-icone); }
+  .v3 .nav button { background: rgba(255,255,255,.92); color: var(--laranja-esc); }
+  .v3 .dot { background: rgba(255,255,255,.55); }
+  .v3 .dot.on { background: var(--navy); }
+
+  /* ============================================================ 4
+     Ícone em disco colorido — dá hierarquia sem depender do desenho */
+  .v4 { background: var(--navy); border-radius: 22px; padding: 30px 28px 24px; }
+  .v4 .titulo .l1 { color: var(--laranja); }
+  .v4 .titulo .l2 { color: var(--branco); }
+  .v4 .card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 14px; padding: 20px 12px; text-align: center; color: var(--branco);
+    transition: background .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .v4 .card:hover { background: rgba(255,255,255,.13); border-color: var(--laranja); transform: translateY(-4px); }
+  .v4 .box {
+    width: 50px; height: 50px; margin: 0 auto 12px; border-radius: 50%;
+    background: var(--laranja); color: var(--navy);
+  }
+  .v4 .nav button { background: var(--laranja); color: var(--navy); }
+  .v4 .dot { background: rgba(255,255,255,.35); }
+  .v4 .dot.on { background: var(--laranja); }
+
+  /* ============================================================ 5
+     Sem cartão: grade aberta, dividida por linhas finas */
+  /* Fundo: degradê vertical profundo com vinheta nos cantos, para a grade
+     aberta não parecer chapada. Os cards herdam transparência, então o
+     degradê atravessa a grade inteira. */
+  .v5 {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(85% 70% at 50% -10%, #FFC163 0%, rgba(255,193,99,0) 60%),
+      linear-gradient(180deg, #F89A2B 0%, var(--laranja) 40%, #D96F09 100%);
+    border-radius: 24px; padding: 32px 28px 26px;
+    box-shadow: 0 16px 34px rgba(217,111,9,.26);
+  }
+  .v5::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 100% at 50% 50%, rgba(0,0,0,0) 55%, rgba(120,55,0,.20) 100%);
+  }
+  .v5 .titulo, .v5 .grade, .v5 .nav { position: relative; z-index: 1; }
+  .v5 .grade {
+    gap: 0; background: rgba(255,255,255,.26); border-radius: 16px;
+    overflow: hidden; padding: 1px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.30);
+  }
+  .v5 .card {
+    background: rgba(255,255,255,.05); padding: 22px 12px; text-align: center;
+    outline: 1px solid rgba(255,255,255,.20);
+    transition: background .2s ease, backdrop-filter .2s ease;
+  }
+  .v5 .card:hover { background: rgba(255,255,255,.20); }
+  .v5 .box { width: 46px; height: 46px; margin: 0 auto 12px; color: var(--branco); }
+  .v5 .nome { color: var(--branco); }
+  .v5 .nav button { background: rgba(255,255,255,.9); color: var(--laranja-esc); }
+  .v5 .dot { background: rgba(255,255,255,.5); }
+  .v5 .dot.on { background: var(--navy); }
+
+  /* ============================================================ 6
+     Cartão largo com ícone à esquerda — melhor para nomes longos */
+  .v6 { background: var(--branco); border-radius: 22px; padding: 30px 28px 24px; box-shadow: 0 2px 14px rgba(22,36,61,.08); }
+  .v6 .titulo .l1 { color: var(--laranja); }
+  .v6 .titulo .l2 { color: var(--navy); }
+  .v6 .card {
+    display: flex; align-items: center; gap: 13px;
+    background: var(--branco); border: 1px solid var(--linha);
+    border-left: 3px solid var(--laranja); border-radius: 12px;
+    padding: 15px 14px; text-align: left;
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+  .v6 .card:hover { box-shadow: 0 10px 22px rgba(22,36,61,.13); transform: translateX(4px); }
+  .v6 .box { flex: 0 0 40px; height: 40px; border-radius: 10px; background: #eaf2fb; color: var(--azul-icone); }
+  .v6 .nav button { background: #f1f4f8; color: var(--laranja-esc); }
+  .v6 .dot { background: #d8dee6; }
+  .v6 .dot.on { background: var(--laranja); }
+
+  /* ============================================================ 7
+     Layout da 6 (cartão largo, ícone à esquerda) com a paleta da 4
+     (painel navy, disco laranja). O cartão largo é o que melhor aguenta
+     nome comprido, e o navy dá contraste ao disco sem precisar de sombra. */
+  .v7 {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(90% 70% at 100% 0%, rgba(247,144,33,.22) 0%, rgba(247,144,33,0) 60%),
+      linear-gradient(160deg, #1E3252 0%, var(--navy) 55%, #0E1829 100%);
+    border-radius: 24px; padding: 32px 28px 26px;
+    box-shadow: 0 16px 34px rgba(14,24,41,.32);
+  }
+  .v7 .titulo, .v7 .grade, .v7 .nav { position: relative; z-index: 1; }
+  .v7 .titulo .l1 { color: var(--laranja); }
+  .v7 .titulo .l2 { color: var(--branco); }
+  .v7 .card {
+    display: flex; align-items: center; gap: 13px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-left: 3px solid var(--laranja); border-radius: 12px;
+    padding: 14px 14px; text-align: left; color: var(--branco);
+    transition: background .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .v7 .card:hover { background: rgba(255,255,255,.13); border-color: var(--laranja-claro); transform: translateX(4px); }
+  .v7 .box {
+    flex: 0 0 42px; height: 42px; border-radius: 50%; padding: 9px;
+    background: var(--laranja); color: var(--navy);
+  }
+  .v7 .nome { min-height: 0; font-size: 13.5px; font-weight: 600; }
+  .v7 .nav button { background: var(--laranja); color: var(--navy); }
+  .v7 .dot { background: rgba(255,255,255,.30); }
+  .v7 .dot.on { background: var(--laranja); }
+
+  /* ------------------------------------------------------------------
+     Demonstração de largura estreita.
+
+     A grade é `repeat(3, 1fr)` com quebra por media query — ou seja, pelo
+     tamanho da JANELA. Numa coluna estreita (sidebar, split de tela) isso
+     não dispara. Aqui a moldura força a largura para ilustrar o reflow:
+     a terceira coluna desce e a grade vira 2x5 com o último item sozinho.
+
+     No projeto, o certo é trocar a media query por container query
+     (`container-type: inline-size` no painel + `@container`), aí a quebra
+     passa a responder ao espaço real do componente e não ao da janela.
+     ------------------------------------------------------------------ */
+  .moldura {
+    max-width: 460px; border: 1px dashed #b9c4d0; border-radius: 26px;
+    padding: 10px; position: relative; background: #fff;
+  }
+  .moldura::before {
+    content: "460px"; position: absolute; top: -9px; left: 18px;
+    background: #fff; padding: 0 8px; font-size: 11px; color: #7b8794;
+  }
+  .moldura .grade { grid-template-columns: repeat(2, 1fr); }
+  .moldura .titulo .l1, .moldura .titulo .l2 { font-size: 26px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Serviços em Destaque</h1>
+  <p>Seis releituras do componente. Marcação e ícones idênticos — só a estilização muda.</p>
+
+  <section class="variant"><div class="rotulo"><b>1. Referência refinada</b><span>mais respiro, sombra suave, hover vivo</span></div><div class="painel v1"></div></section>
+  <section class="variant"><div class="rotulo"><b>2. Painel claro</b><span>laranja como acento, menos peso visual</span></div><div class="painel v2"></div></section>
+  <section class="variant"><div class="rotulo"><b>3. Barra inferior</b><span>preenche no hover, gradiente no fundo</span></div><div class="painel v3"></div></section>
+  <section class="variant"><div class="rotulo"><b>4. Invertido</b><span>fundo navy, ícone em disco laranja</span></div><div class="painel v4"></div></section>
+  <section class="variant"><div class="rotulo"><b>5. Grade aberta</b><span>sem cartão, dividido por linhas</span></div><div class="painel v5"></div></section>
+  <section class="variant"><div class="rotulo"><b>6. Cartão largo</b><span>ícone à esquerda, melhor para nomes longos</span></div><div class="painel v6"></div></section>
+  <section class="variant"><div class="rotulo"><b>7. Cartão largo + paleta navy</b><span>layout da 6 com as cores da 4</span></div><div class="painel v7"></div></section>
+
+  <section class="variant">
+    <div class="rotulo"><b>Largura estreita</b><span>a terceira coluna desce — mesma marcação, container de 460px</span></div>
+    <div class="moldura"><div class="painel v7"></div></div>
+    <div class="moldura" style="margin-top:20px"><div class="painel v1"></div></div>
+  </section>
+
+</div>
+
+<script>
+  // Mesma forma que a API devolve em AssuntosController::highlighted:
+  //   { id, name, icon }  — icon vem de json->icone
+  // `icon` e o valor de json->icone; a imagem vive em BASE_ICONES + icon + '.png'.
+  // Os tres marcados como null nao tiveram o nome do arquivo descoberto (a
+  // listagem do diretorio responde 403 e o nome nao deriva do rotulo).
+  // Preencha com o valor real de json->icone e o icone aparece.
+  const BASE_ICONES = 'https://homo.aracaju.se.gov.br/images/icons-servicos/';
+
+  const servicos = [
+    { id: 1, name: 'AjuInteligente',                    icon: 'ico-ajuinteligente' },
+    { id: 2, name: 'Zona de Expansão',                  icon: 'ico-expansao' },
+    { id: 3, name: 'Portal do Contribuinte',            icon: null },
+    { id: 4, name: 'Aracaju Transparência',             icon: null },
+    { id: 5, name: 'Atendimento ao Servidor Municipal', icon: null },
+    { id: 6, name: 'Procon',                            icon: 'ico-procon' },
+    { id: 7, name: 'Defesa Civil',                      icon: 'ico-defesacivil' },
+    { id: 8, name: 'Feiras Livres',                     icon: 'ico-feiraslivres' },
+    { id: 9, name: 'Cidade Melhor',                     icon: 'ico-cidademelhor' },
+  ];
+
+  // ÚNICO ponto de renderização do ícone. Nenhum dos 6 estilos depende do
+  // desenho — só do tamanho do slot. Sem `icon`, cai num marcador neutro.
+  const iconeHtml = (icon, nome) => icon
+    ? `<img class="ico" src="${BASE_ICONES}${icon}.png" alt="" loading="lazy" />`
+    : `<i class="ico ico-vazio" aria-hidden="true">${nome.charAt(0)}</i>`;
+
+  const painel = `
+    <h2 class="titulo"><span class="l1">Serviços</span><span class="l2">em destaque</span></h2>
+    <div class="grade">
+      ${servicos.map((s) => `
+        <a class="card" href="#" aria-label="${s.name}">
+          <span class="box">${iconeHtml(s.icon, s.name)}</span>
+          <span class="nome">${s.name}</span>
+        </a>`).join('')}
+    </div>
+    <div class="nav">
+      <button type="button" aria-label="Anterior">&#8249;</button>
+      <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+      <button type="button" aria-label="Próximo">&#8250;</button>
+    </div>`;
+
+  document.querySelectorAll('.painel').forEach((el) => { el.innerHTML = painel; });
+</script>
+</body>
+</html>
